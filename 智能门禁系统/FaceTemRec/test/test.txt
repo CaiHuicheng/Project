@@ -1,0 +1,237 @@
+准备
+欢迎1711610035 !
+ID:1711610035  温度：35.1
+<Response [200]>
+{
+  "args": {}, 
+  "data": "{\"id\": \"1711610035\", \"temperature\": \"35.1\"}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "43", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.21.0", 
+    "X-Amzn-Trace-Id": "Root=1-5eacd02f-4a8d6c9a789dda7c8dcf51e9"
+  }, 
+  "json": {
+    "id": "1711610035", 
+    "temperature": "35.1"
+  }, 
+  "origin": "120.239.27.122", 
+  "url": "http://httpbin.org/post"
+}
+
+5.786067247390747
+
+准备
+欢迎1711610035 !
+ID:1711610035  温度：35.8
+<Response [200]>
+{
+  "args": {}, 
+  "data": "{\"id\": \"1711610035\", \"temperature\": \"35.8\"}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "43", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.21.0", 
+    "X-Amzn-Trace-Id": "Root=1-5eacd143-0798330ed31c0ab83eecff92"
+  }, 
+  "json": {
+    "id": "1711610035", 
+    "temperature": "35.8"
+  }, 
+  "origin": "120.239.27.122", 
+  "url": "http://httpbin.org/post"
+}
+
+5.410250186920166
+准备
+欢迎1711610035 !
+ID:1711610035  温度：35.9
+<Response [200]>
+{
+  "args": {}, 
+  "data": "{\"id\": \"1711610035\", \"temperature\": \"35.9\"}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "43", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.21.0", 
+    "X-Amzn-Trace-Id": "Root=1-5eacd184-19b95944fd4a8e3f96e17d25"
+  }, 
+  "json": {
+    "id": "1711610035", 
+    "temperature": "35.9"
+  }, 
+  "origin": "120.239.27.122", 
+  "url": "http://httpbin.org/post"
+}
+
+3.6971170902252197
+
+准备
+欢迎1711610035 !
+ID:1711610035  温度：35.9
+<Response [200]>
+{
+  "args": {}, 
+  "data": "{\"id\": \"1711610035\", \"temperature\": \"35.9\"}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "43", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.21.0", 
+    "X-Amzn-Trace-Id": "Root=1-5eacd198-5e5993ba97b4799c1fe337b0"
+  }, 
+  "json": {
+    "id": "1711610035", 
+    "temperature": "35.9"
+  }, 
+  "origin": "120.239.27.122", 
+  "url": "http://httpbin.org/post"
+}
+
+8.578500270843506
+
+准备
+欢迎1711610035 !
+ID:1711610035  温度：35.6
+<Response [200]>
+{
+  "args": {}, 
+  "data": "{\"id\": \"1711610035\", \"temperature\": \"35.6\"}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "43", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.21.0", 
+    "X-Amzn-Trace-Id": "Root=1-5eacd1b4-441e3080ac7e7f445654fd7c"
+  }, 
+  "json": {
+    "id": "1711610035", 
+    "temperature": "35.6"
+  }, 
+  "origin": "120.239.27.122", 
+  "url": "http://httpbin.org/post"
+}
+
+5.349218130111694
+准备
+欢迎1711610035 !
+ID:1711610035  温度：36.2
+<Response [200]>
+{
+  "args": {}, 
+  "data": "{\"id\": \"1711610035\", \"temperature\": \"36.2\"}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "43", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.21.0", 
+    "X-Amzn-Trace-Id": "Root=1-5eacd2b9-619dcd6868683242a52db426"
+  }, 
+  "json": {
+    "id": "1711610035", 
+    "temperature": "36.2"
+  }, 
+  "origin": "120.239.27.122", 
+  "url": "http://httpbin.org/post"
+}
+
+10.514771223068237
+准备
+欢迎1711610035 !
+ID:1711610035  温度：36.4
+<Response [200]>
+{
+  "args": {}, 
+  "data": "{\"id\": \"1711610035\", \"temperature\": \"36.4\"}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "43", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.21.0", 
+    "X-Amzn-Trace-Id": "Root=1-5eacd2c3-db3d99f0459561504b9ccb2a"
+  }, 
+  "json": {
+    "id": "1711610035", 
+    "temperature": "36.4"
+  }, 
+  "origin": "120.239.27.122", 
+  "url": "http://httpbin.org/post"
+}
+
+4.966877698898315
+准备
+欢迎1711610035 !
+ID:1711610035  温度：36.3
+<Response [200]>
+{
+  "args": {}, 
+  "data": "{\"id\": \"1711610035\", \"temperature\": \"36.3\"}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "43", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.21.0", 
+    "X-Amzn-Trace-Id": "Root=1-5eacd2c9-7013ef184759b004cda049f0"
+  }, 
+  "json": {
+    "id": "1711610035", 
+    "temperature": "36.3"
+  }, 
+  "origin": "120.239.27.122", 
+  "url": "http://httpbin.org/post"
+}
+
+3.2927212715148926
+准备
+欢迎1711610035 !
+ID:1711610035  温度：36.1
+<Response [200]>
+{
+  "args": {}, 
+  "data": "{\"id\": \"1711610035\", \"temperature\": \"36.1\"}", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "43", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.21.0", 
+    "X-Amzn-Trace-Id": "Root=1-5eacd2d0-e1eea7490d7f982e78fc0638"
+  }, 
+  "json": {
+    "id": "1711610035", 
+    "temperature": "36.1"
+  }, 
+  "origin": "120.239.27.122", 
+  "url": "http://httpbin.org/post"
+}
+
+29.74576735496521
