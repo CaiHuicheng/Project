@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.usy.mapper.TeacherMapper">
+
+    <insert id="insert">
+        INSERT INTO teacher_info (teacher_id,teacher_name,teacher_hp,teacher_gender,teacher_uid,
+        teacher_pnum,teacher_organ,teacher_title,teacher_direct,teacher_intro,teacher_approve)
+        VALUES (
+        #{teacherId},#{teacherName},#{teacherHp},#{teacherGender},#{teacherUid},#{teacherPnum},#{teacherOrgan},
+        #{teacherTitle},#{teacherDirect},#{teacherIntro},#{teacherApprove});
+    </insert>
+
+    <select id="getAccount" resultType="com.usy.pojo.Teacher">
+        SELECT * FROM teacher_info WHERE teacher_account = #{teacherAccount};
+    </select>
+
+    <select id="selectAccountPwd" resultType="com.usy.pojo.Teacher">
+        SELECT * FROM teacher_info
+        WHERE teacher_account = #{teacherAccount}
+        and teacher_password = #{teacherPassword};
+    </select>
+
+    <update id="update">
+        update teacher_info
+        <set>
+            <if test="teacherName != null and teacherName != ''">
+                teacher_name = #{teacherName},
+            </if>
+            <if test="teacherGender != null and teacherGender != ''">
+                teacher_gender= #{teacherGender},
+            </if>
+            <if test="teacherUid != null and teacherUid != ''">
+                teacher_uid = #{teacherUid},
+            </if>
+            <if test="teacherHeadpicture != null and teacherHeadpicture != ''">
+                teacher_headpicture = #{teacherHeadpicture},
+            </if>
+            <if test="teacherPhonenumber != null and teacherPhonenumber != ''">
+                teacher_phonenumber = #{teacherPhonenumber},
+            </if>
+            <if test="teacherInstitution != null and teacherInstitution != ''">
+                teacher_institution = #{teacherInstitution},
+            </if>
+            <if test="teacherTitle != null and teacherTitle != ''">
+                teacher_title = #{teacherTitle},
+            </if>
+            <if test="teacherMaindirection != null and teacherMaindirection != ''">
+                teacher_maindirection = #{teacherMaindirection},
+            </if>
+            <if test="teacherIntroduction != null and teacherIntroduction != ''">
+                teacher_introduction = #{teacherIntroduction},
+            </if>
+            <if test="teacherApprovalstatus != null and teacherApprovalstatus != ''">
+                teacher_approvalstatus = #{teacherApprovalstatus},
+            </if>
+            <if test="teacherRegisterdate != null">
+                teacher_registerdate = #{teacherRegisterdate}
+            </if>
+        </set>
+        <where>
+            teacher_account = #{teacherAccount}
+            and
+            teacher_password = #{teacherPassword}
+        </where>
+    </update>
+
+
+    <update id="updateUserHeadPortrait">
+        update teacher_info
+        <set>
+            <if test="teacherHeadpicture != null and teacherHeadpicture != ''">
+                teacher_headpicture = #{teacherHeadpicture},
+            </if>
+        </set>
+        <where>
+            teacher_account = #{teacherAccount}
+            and
+            teacher_password = #{teacherPassword}
+        </where>
+    </update>
+
+    <select id="getTeacher" resultType="com.usy.pojo.Teacher">
+        select * from teacher_info where teacher_id = #{teacherId};
+    </select>
+
+</mapper>

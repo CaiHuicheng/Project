@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mac="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+
+
+    <!-- 做一个spring 基础配置-->
+    <!--1.spring 容器注册 -->
+    <context:annotation-config/>
+    <!-- 1.配置一个注解扫描的包 -->
+    <context:component-scan base-package="com.usy"></context:component-scan>
+
+
+    <!-- 3.激活aop 注解方式的代理 -->
+    <aop:aspectj-autoproxy/>
+
+    <!-- 消息格式转化 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="registerDefaultFormatters" value="false"/>
+        <property name="formatters">
+            <set>
+                <bean class="org.springframework.format.number.NumberFormatAnnotationFormatterFactory"/>
+
+            </set>
+        </property>
+        <property name="formatterRegistrars">
+            <set>
+                <bean class="org.springframework.format.datetime.joda.JodaTimeFormatterRegistrar">
+                    <property name="dateFormatter">
+                        <bean class="org.springframework.format.datetime.joda.DateTimeFormatterFactoryBean">
+                            <property name="pattern" value="yyyyMMdd"/>
+                        </bean>
+                    </property>
+                </bean>
+            </set>
+        </property>
+    </bean>
+    <!-- 默认的servlet处理者 -->
+    <!-- 释放静态资源 让静态资源通过 多种方案 采用第一种 -->
+    <!-- 方式一 ： -->
+    <mvc:default-servlet-handler/>
+    <!-- 只加上他一个的话相当于全部让他处理，这样就会导致全部注解失效 -->
+
+    <mvc:annotation-driven/>
+    <!-- 为了让原有注解生效 加上 mvc:annotation-driven -->
+    <!-- 方式二 ： -->
+    <!--    <mvc:resources mapping="/static/*" location="static/css/"/>-->
+    <!-- 方式三 ： 自行在web定义 -->
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

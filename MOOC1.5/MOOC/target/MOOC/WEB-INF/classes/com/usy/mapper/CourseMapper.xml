@@ -1,0 +1,19 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.usy.mapper.CourseMapper">
+    <insert id="insertCourse">
+        INSERT INTO course_info (teacher_id,course_name,course_type,course_intro,course_begin,
+        course_end,course_open,course_public,course_check)
+        VALUES (#{teacherId},#{courseName},#{courseType},#{courseIntro},#{courseBegin}
+        ,#{courseEnd},#{courseOpen},#{coursePublic},#{courseCheck});
+    </insert>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="courseId" parameterType="com.usy.pojo.Course">
+        INSERT INTO course_info (teacher_id,course_name,course_type,course_intro,course_begin,
+        course_end,course_open,course_public,course_check)
+        VALUES (#{teacherId},#{courseName},#{courseType},#{courseIntro},#{courseBegin}
+        ,#{courseEnd},#{courseOpen},#{coursePublic},#{courseCheck})
+    </insert>
+</mapper>

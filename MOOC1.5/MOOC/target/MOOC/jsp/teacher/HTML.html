@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+                        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="layui/css/layui.css">
+        <title>按钮添加表单</title>
+    <style>
+        layui-form-label,.layui-input-block{
+            margin-left:0;
+            float: left;
+        }
+        layui-input{
+            float: left;
+            width: 47%;
+            margin-left: 3%;
+        }
+        layui-btn-add{
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<button class="layui-btn" id="layui-btn" onclick="AddInput()">新增</button>
+<div id="body">
+        <div class="layui-form-item">
+            <label class="layui-form-label">单行输入框</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input" >
+                <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input" >
+            </div>
+        </div>
+</div>
+
+<script src="../static/plugins/jquery/jquery.js"></script>
+<script src="../static/plugins/layui/layui.js"></script>
+<script>
+    var count = 1;
+    //用来判断是删除 还是增加按钮 以便count值进行计算
+    function checkCount(boolOK, coun) {
+        if (boolOK == true) {
+            return count++;
+        }
+        else {
+            count--;
+        }
+    }
+    //添加一个input标签 同时也对它的ID和Name进行赋值。
+    function AddInput() {
+        countAA = checkCount(true, count);
+        var body = document.getElementById("body");
+        //创建div盒子用于包裹input+删除按钮
+        var div = document.createElement("div");
+        div.id = "bodys[" + count + "]";
+        div.setAttribute('class','layui-form-item')
+        body.appendChild(div);
+
+        var label = document.createElement("label");
+        label.setAttribute('class','layui-form-label');
+        div.appendChild(label);
+
+        var divin = document.createElement("div");
+        divin.setAttribute('class','layui-input-block');
+        div.appendChild(divin);
+
+        //创建input
+        var input = document.createElement("input");
+        input.type = "text";
+        input.setAttribute('class','layui-input');
+        input.name = "title1[" + count + "].name";
+        input.autocomplete="title1[" + count + "].name";
+        divin.appendChild(input);                                     //向元素增加子节点 最为最后一个子节点
+
+        //创建input
+        var input = document.createElement("input");
+        input.type = "text";
+        input.setAttribute('class','layui-input');
+        input.name = "title2[" + count + "].name";
+        input.autocomplete="title2[" + count + "].name";
+        divin.appendChild(input);
+
+        //创建删除按钮
+        var input = document.createElement("input");
+        input.type = "button";
+        input.value="删除";
+        input.setAttribute('class','layui-btn layui-btn-add');
+        div.appendChild(input);
+
+        //创建一个空格
+        var br = document.createElement("br");
+        div.appendChild(br);
+
+        // $(".layui-btn-add").click(function () {
+        //     $(this).parent('div').remove()
+        // })
+    }
+</script>
+</body>
+</html>

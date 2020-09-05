@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+                http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+
+    <context:component-scan base-package="com.usy.mapper">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 引入数据库相关配置文件 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- 基本链接信息 -->
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!--如果需要，把所有属性写入properties文件-->
+        <!-- c3p0连接池的私有属性 -->
+        <property name="maxPoolSize" value="5"/>
+        <property name="minPoolSize" value="2"/>
+        <!-- 关闭链接不删除commit -->
+        <property name="autoCommitOnClose" value="false"/>
+        <!-- 获取连接超时时间 -->
+        <property name="checkoutTimeout" value="100000"/>
+        <!-- 获取连接失败重试次数 -->
+        <property name="acquireRetryAttempts" value="3"/>
+
+    </bean>
+
+    <!-- 整合mybatis -->
+    <!-- 1.注入一般mybatis的SessionFactoryBean
+        2.申明事务
+    -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 引入mappers文件 -->
+        <!-- 要求所有的mapper文件必须在com/usy/mapper/**/*.xml-->
+        <property name="mapperLocations" value="classpath:com/usy/mapper/**/*.xml"/>
+        <property name="configuration">
+            <bean class="org.apache.ibatis.session.Configuration">
+                <!-- 加入驼峰命名，其他mybatis的配置就是mybatis.cfg.cml的相关配置也会转移导致这-->
+                <property name="mapUnderscoreToCamelCase" value="true"/>
+            </bean>
+        </property>
+
+        <!-- 插件配置 -->
+        <property name="plugins">
+            <array>
+                <!-- 分页插件的配置 -->
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <!-- 这里的几个配置主要演示使用插件 如果不用一定要取掉-->
+                    <property name="properties">
+                        <value>
+                            helperDialect=mysql
+                            reasonable=true
+                            supportMethodsArguments=true
+                            params=count=countSql
+                            autoRuntimeDialect=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <!-- 持久层接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.usy.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
+    </bean>
+
+    <!-- 事务管理 使用数据源事务管理类 进行管理 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 确定事务管理策略 transaction-manager：指向上面transactionManager-->
+    <tx:advice transaction-manager="transactionManager" id="transactionAdvice">
+        <!-- 事务处理的相关值以及它的传播性 -->
+        <tx:attributes>
+            <!-- 查询相关的配置为只读 select开头或get 或query-->
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="query*" read-only="true"/>
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="add*" propagation="REQUIRED" rollback-for="Exception"/>
+
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 使用奥鹏对事务管理的范围进行织入
+        明确几点1.对那些地方进行事务execution书写，明确边界
+        2.使用上面策略去管理 全部卸载ax：advice
+    -->
+    <aop:config>
+        <aop:pointcut id="txCut" expression="execution(* com.usy.service.*.*(..))"/>
+        <aop:advisor advice-ref="transactionAdvice" pointcut-ref="txCut"/>
+    </aop:config>
+
+    <!-- 采用注解进行事务配置，请在service的实现类上面加@Transactionl注解-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

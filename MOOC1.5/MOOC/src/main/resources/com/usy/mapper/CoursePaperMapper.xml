@@ -1,0 +1,23 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.usy.mapper.CoursePaperMapper">
+
+    <select id="selectPaperChoice" resultType="com.usy.pojo.PaperChoice">
+        select * from course_paper_choice where paper_id = #{paperId}
+    </select>
+
+    <select id="selectPaperJudge" resultType="com.usy.pojo.PaperJudge">
+        select * from course_paper_judge where paper_id = #{paperId}
+    </select>
+
+    <select id="selectPaperBlank" resultType="com.usy.pojo.PaperBlank">
+        select * from course_paper_blank where paper_id = #{paperId}
+    </select>
+
+    <select id="selectPaperDiscuss" resultType="com.usy.pojo.PaperDiscuss">
+        select * from  course_paper_discuss where paper_id = #{paperId}
+    </select>
+
+</mapper>

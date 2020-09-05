@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mac="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 配置一个注解扫描的包 -->
+    <context:component-scan base-package="com.usy">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+
+
+    <!-- 配置一个视图-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 自动注入到spring 属性
+            所以一般不写ID -->
+        <!-- 前缀 -->
+        <property name="prefix" value="/jsp/"/>
+        <!-- 后缀 -->
+        <property name="suffix" value=".jsp"/>
+
+    </bean>
+
+    <!-- 文件上传解析器 -->
+    <!-- id必须是 multipartResolver 原因是源码代码已经写死了 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 定义最大上传文件大小 总的 单位为 bytes-->
+        <property name="maxUploadSize" value="1024000"/>
+        <!-- 指定上传的编码 -->
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!-- 单个文件最大上传大小 -->
+        <property name="maxUploadSizePerFile" value="2000000"/>
+    </bean>
+
+
+    <!-- 拦截器配置 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 拦截路径 -->
+            <!--
+                /*的写法只能拦截一层
+                只能有一层
+            -->
+            <mvc:mapping path="/**/*"/>
+            <bean class="com.usy.interceptors.MethodTimerInterceptor">
+
+            </bean>
+        </mvc:interceptor>
+
+<!--        <mvc:interceptor>
+            &lt;!&ndash;
+                我要拦截什么      我只想拦截/user/**/*
+                还需要开放登陆的权限
+            &ndash;&gt;
+            <mvc:mapping path="/teacher/**/*"/>
+            &lt;!&ndash; 排除登陆这个url &ndash;&gt;
+            <mvc:exclude-mapping path="/teacher/login"/>
+            <mvc:exclude-mapping path="/teacher/signin"/>
+            <mvc:exclude-mapping path="/teacher/checkaccount"/>
+            <bean class="com.usy.interceptors.SessionInterceptor">
+
+            </bean>
+        </mvc:interceptor>-->
+
+    </mvc:interceptors>
+
+    <!-- 默认的servlet处理者 -->
+    <!-- 释放静态资源 让静态资源通过 多种方案 采用第一种 -->
+    <!-- 方式一 ： -->
+    <mvc:default-servlet-handler/>
+    <!-- 只加上他一个的话相当于全部让他处理，这样就会导致全部注解失效 -->
+    <mvc:annotation-driven/>
+    <!-- 为了让原有注解生效 加上 mvc:annotation-driven -->
+    <!-- 方式二 ： -->
+    <!--    <mvc:resources mapping="/static/*" location="static/css/"/>-->
+    <!-- 方式三 ： 自行在web定义 -->
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
