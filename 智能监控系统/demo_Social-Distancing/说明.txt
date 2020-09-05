@@ -1,0 +1,12 @@
+﻿运行程序所需的权重文件在百度网盘，只需解压到根目录即可
+
+1、	demo_Social-Distancing
+
+程序运行的测试视频在百度网盘，只需解压到videos目录即可
+
+2、	demo_Social-Distancing\videos
+
+程序运行过程
+1、可以运行testSocialDistancing.py	testSocialDistancing.py为逐帧检测
+
+2、可以运行main.py			main.py为0.5S检测一帧，实际化显示效果不是很好

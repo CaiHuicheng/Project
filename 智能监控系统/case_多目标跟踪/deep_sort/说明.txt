@@ -1,0 +1,11 @@
+运行程序所需的weight文件和模型放在百度网盘，下载到相应目录便可
+
+1、	\case_多目标跟踪\deep_sort\deep_sort\deep\checkpoint
+
+2、	 \case_多目标跟踪\deep_sort\detector\YOLOv3\weight
+
+
+程序运行
+1、通过requirements.txt配置相关环境
+
+2、运行yolov3_deepsort.py		输出视频文件在output

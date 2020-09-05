@@ -1,0 +1,6 @@
+程序运行的weigth文件和模型在百度网盘，下载到weights目录即可
+1、 \demo_person_search\weights
+
+程序运行步骤
+1、运行query_get.py		截图追踪人的图像
+2、运行search.py		在视频文件中寻找该人

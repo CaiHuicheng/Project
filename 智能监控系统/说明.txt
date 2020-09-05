@@ -1,0 +1,13 @@
+多目标跟踪:YOLO结合deepSORT的目标跟踪
+
+PaddlePaddle_yolov3：PaddlePaddle model1.4 yolov3模型 本系统人体检测模型 coco数据集
+
+demo_Social-Distancing：基于在研究的智能监控系统，结合当前防疫情况，做的一个社交距离智能监控功能
+
+demo_person_search：基于在研究的智能监控系统，查找丢失人员功能模块
+
+
+
+本项目所需的权重文件均已经上传到百度网盘
+链接：https://pan.baidu.com/s/1-aY8EyxfMtKAmBmNdPlgrg 
+提取码：gbw4
