@@ -1,0 +1,138 @@
+﻿  main.cpp
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(70): error C2011: “cv::KeyPoint”:“class”类型重定义
+  g:\vs\opencv3.4\opencv\build\include\opencv2\core\types.hpp(699): note: 参见“cv::KeyPoint”的声明
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(112): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(112): error C2143: 语法错误: 缺少“,”(在“&”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(114): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(129): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(133): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(138): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(142): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(147): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(168): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(176): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(176): error C2143: 语法错误: 缺少“,”(在“<”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(182): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(182): error C2143: 语法错误: 缺少“,”(在“&”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(185): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(192): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(216): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(225): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(225): error C2143: 语法错误: 缺少“,”(在“<”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(232): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(232): error C2143: 语法错误: 缺少“,”(在“&”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(235): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(240): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(262): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(269): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(269): error C2143: 语法错误: 缺少“,”(在“&”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(270): error C2250: “cv::Feature2D”:“bool cv::Algorithm::empty(void) const”的不明确继承
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(288): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(291): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(292): error C2535: “void cv::BRISK::operator ()(cv::InputArray,cv::InputArray) const”: 已经定义或声明成员函数
+  g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(288): note: 参见“cv::BRISK::operator ()”的声明
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(294): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(294): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(294): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(309): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(310): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(312): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(313): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(382): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(385): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(386): error C2535: “void cv::ORB::operator ()(cv::InputArray,cv::InputArray) const”: 已经定义或声明成员函数
+  g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(382): note: 参见“cv::ORB::operator ()”的声明
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(388): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(388): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(388): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(392): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(393): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(421): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(425): error C2143: 语法错误: 缺少“,”(在“<”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(421): error C2548: “cv::FREAK::FREAK”: 缺少参数 5 的默认参数
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(444): error C2143: 语法错误: 缺少“;”(在“<”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(444): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(445): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(447): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(447): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(447): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(455): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(468): error C2143: 语法错误: 缺少“;”(在“<”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(468): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(468): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(491): error C2143: 语法错误: 缺少“;”(在“<”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(491): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(491): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(517): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(519): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(519): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(519): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(522): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(553): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(555): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(555): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(555): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(558): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(568): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(571): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(584): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(584): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(584): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(587): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(599): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(599): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(599): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(602): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(659): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(660): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(663): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(663): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(663): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(675): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(675): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(675): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(678): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(712): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(712): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(712): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(715): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(705): error C2440: “默认参数”: 无法从“int”转换为“const cv::Ptr<cv::FeatureDetector> &”
+  g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(705): note: 原因如下: 无法从“int”转换为“const cv::Ptr<cv::FeatureDetector>”
+  g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(705): note: 无构造函数可以接受源类型，或构造函数重载决策不明确
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(737): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(769): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(769): error C2143: 语法错误: 缺少“,”(在“&”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(798): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(829): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(852): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(869): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(874): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(874): error C2143: 语法错误: 缺少“,”(在“<”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(902): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(927): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(927): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(927): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(930): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(932): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(932): error C2143: 语法错误: 缺少“,”(在“<”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1007): error C2011: “cv::Hamming”:“struct”类型重定义
+  g:\vs\opencv3.4\opencv\build\include\opencv2\core\base.hpp(500): note: 参见“cv::Hamming”的声明
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1041): error C2011: “cv::DMatch”:“class”类型重定义
+  g:\vs\opencv3.4\opencv\build\include\opencv2\core\types.hpp(796): note: 参见“cv::DMatch”的声明
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1076): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1076): error C2143: 语法错误: 缺少“,”(在“<”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1080): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1080): error C2143: 语法错误: 缺少“;”(在“<”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1080): error C2238: 意外的标记位于“;”之前
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1113): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1119): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1124): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1130): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1132): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1134): error C2061: 语法错误: 标识符“vector”
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1147): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1147): error C2143: 语法错误: 缺少“,”(在“&”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1161): error C2327: “cv::DescriptorMatcher::vector”: 不是类型名称、静态或枚举数
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1161): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1161): error C2143: 语法错误: 缺少“,”(在“<”的前面)
+g:\vs\opencv3.4\opencv\build\include\opencv2\features2d\features2d.hpp(1161): fatal error C1003: 错误计数超过 100；正在停止编译

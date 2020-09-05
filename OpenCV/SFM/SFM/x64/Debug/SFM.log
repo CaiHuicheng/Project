@@ -1,0 +1,5 @@
+﻿  main.cpp
+f:\program files\pcl 1.9.0\include\pcl-1.9\pcl\point_traits.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+f:\program files\pcl 1.9.0\include\pcl-1.9\pcl\visualization\interactor_style.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+f:\program files\pcl 1.9.0\include\pcl-1.9\pcl\visualization\pcl_visualizer.h(1609): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  SFM.vcxproj -> I:\JustIT-USY\CaiHuicheng-practice\OpenCV\SFM\x64\Debug\SFM.exe
