@@ -1,0 +1,20 @@
+// Tanks war.idl : IDL source for Tanks war.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (Tanks war.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(AFC86F44-0E3F-4C64-AE76-26551589B669),
+	version(1.0),
+	helpstring("Tanks war 1.0 Type Library")
+]
+library TANKSWARLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+};

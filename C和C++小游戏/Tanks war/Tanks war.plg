@@ -1,0 +1,35 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: 坦克大战 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\weq15\AppData\Local\Temp\RSP6C70.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/坦克大战.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\c语言小游戏\坦克大战\坦克大战.cpp"
+]
+Creating command line "cl.exe @C:\Users\weq15\AppData\Local\Temp\RSP6C70.tmp" 
+Creating temporary file "C:\Users\weq15\AppData\Local\Temp\RSP6C71.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/坦克大战.pdb" /debug /machine:I386 /out:"Debug/坦克大战.exe" /pdbtype:sept 
+".\Debug\坦克大战.obj"
+]
+Creating command line "link.exe @C:\Users\weq15\AppData\Local\Temp\RSP6C71.tmp"
+<h3>Output Window</h3>
+Compiling...
+坦克大战.cpp
+D:\c语言小游戏\坦克大战\坦克大战.cpp(2266) : warning C4101: 'key2' : unreferenced local variable
+D:\c语言小游戏\坦克大战\坦克大战.cpp(1337) : warning C4715: 'judge' : not all control paths return a value
+D:\c语言小游戏\坦克大战\坦克大战.cpp(1360) : warning C4715: 'judge2' : not all control paths return a value
+Linking...
+
+
+
+<h3>Results</h3>
+坦克大战.exe - 0 error(s), 3 warning(s)
+</pre>
+</body>
+</html>
