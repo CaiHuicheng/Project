@@ -1,0 +1,68 @@
+
+0.使用vagrant开机
+	必须保证执行vagrnat up命令所在的目录是要开机的虚拟机目录
+	vagrant up		启动
+	vagrant halt	关闭
+	vagrnat reload	重启
+	vagrant ssh		登陆
+	
+1.系统使用基础
+	登入  ssh  username@host-ip
+	登出  exit
+	关机  poweroff	重启 reboot
+	
+2.遍历文件系统
+	Linux文件系统采用单根树状结构
+	/ 表示最顶层目录
+	命令 cd 切换工作目录
+	. 表示当前目录 .. 表示当前父目录
+	命令 ls 查看当前文件内容
+
+3.在学习和操作linux的时候,一定不要害怕命令行模式
+	命令行模式显得更专业,高效
+	
+4.vi基础
+	如果没有我们当前的vagrant开发环境
+	我们需要学习怎么在命令行实现文本编辑
+	vi/vim  
+		https://www.runoob.com/linux/linux-vim.html
+		
+	emacs(Richard Stallman,FSF,GNU)
+		linux只是一个系统内核,完成OS所需的最本质工作
+		如果需要被广泛使用,还需要在linux上面附加很多软件包,比如浏览器,GUI,...
+		Richard Stallman=>FSF=>GNU
+		linux系统的完整全称是GNU/Linux
+	
+	vi/vim的工作模式有三种
+		进入的是一般模式:控制光标位置,进行内容复制/删除等操作,但不能输入文字
+		可通过 i,a,o切换到插入模式进行文字输入,通过escape键切换回一般模式
+		通过在一般模式情况下,输入:将切换到"底行模式",
+			在底行模式中执行特点命令完毕后自动返回到一般模式
+		
+		ctrl+s不能保存文件,而是锁屏
+		ctrl+q解锁屏幕
+
+5.快速入门
+	软件管理
+		下载软件包,安装,卸载
+		rpm命令明确安装/卸载特定软件包	不好用
+			rpm -ivh 软件包文件名  (gcc-c++-6xxx.el6.x86_64.rpm)
+		yum自动下载,并安装相关依赖		强烈建议使用
+			yum install 软件包名	(gcc-c++)
+			a.知道软件包的名字		yum provides c++
+			b.配置软件仓库的来源	http://mirrors.163.com/.help/centos.html
+			c.自动同步软件仓库信息	yum clean all  &&  yum makecache	
+			d.自动查询相关依赖并安装软件包  yum install gcc-c++
+		
+	尝试在mini安装的基础上打造图形化界面
+		yum group list
+		yum group install "GNOME Desktop"
+			可能需要设置默认开机模式是图形化方式,从而使得GUI生效
+			sudo systemctl set-default graphical.target 	图形化
+			sudo systemctl set-default multi-user.target	字符集
+			
+		
+		
+		
+	
+	

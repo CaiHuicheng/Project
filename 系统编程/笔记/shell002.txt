@@ -1,0 +1,63 @@
+
+以后上课统一采用腾讯会议
+固定会议号: 197 644 700
+
+1.shell命令
+	ln	链接	 	!!!(上网查阅完整信息)
+		硬链接	类似完整文件复制,使用有一些约束 
+		软链接	类似windows平台的快捷方式
+	tar	打包
+		把多个文件打包为一个整体
+		可以在打包中采用各种压缩算法
+		打包	tar -cf 新建包名.tar	被打包文件列表
+		解包	tar -xf 新建包名.tar	
+		压缩并打包	
+			tar -czf 新建包名.tar.gz 被打包文件列表 (用gzip压缩方式)
+		解压缩tt
+			tar -xzf 新建包名.tar.gz
+	echo | printf
+		echo 'hello'
+		echo -e 'hello\tworld'
+		echo $PATH
+	
+	文件内容控制
+		查看	cat more less head tail
+		查找	grep	grep 查找关键字  查找文件
+	
+	重定向	!!!
+		shell启动时默认打开三个文件实现用户交互
+			标准输入文件0		绑定到键盘
+			标准输出文件1		绑定到屏幕
+			标准错误输出文件2	绑定到屏幕
+		重定向指可以修改上述文件的指向
+			使用 > 修改输出指向		echo "aaa" > out.txt
+			使用 >> 修改输出指向并追加到文件尾	echo "bbb" >> out.txt
+			使用 2> 修改标准错误输出的指向  find / -name stdio.h 2> /dev/null
+			使用 < 修改输入指向		nl <test.txt  >out.txt           
+	
+	管道	!!!
+		把上一个命令的输出作为下一个命令的输入
+			cat test.txt | sort -r | wc
+
+	
+6.实战1
+查找ls命令所在目录	
+查看ls手册,找到以K,M,G 而不是字节表示文件大小的方法	
+在user1主目录创建子目录test1	
+分别用绝对和相对路径方式进入test1	
+创建空文件hello.c	
+改名为t1.c	
+复制为t2.c	
+gzip压缩并打包所有t开头的文件为 tt.tar.gz	
+删除t1.c, t2.c	
+解压缩tt.tar.gz 到 user1主目录	并查看t1.c内容	
+vi编辑t1.c为hello,world的c程序	
+查找t1.c中main所在行的行号及内容,并输出到out.txt
+查找t2.c中main所在行的行号及内容,并追加输出到out.txt
+
+                                                                                   
+
+		
+
+
+	

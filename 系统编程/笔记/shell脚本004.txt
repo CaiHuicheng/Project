@@ -1,0 +1,184 @@
+
+1.编写Shell函数并调用,完成命令行传入数值区间的奇数和,
+	如传入1，5实际计算1，3，5的和，输出9
+	运行效果：$ sh ./t1.sh 1 5
+	ret=9
+	如传入2,5,实际计算3+5=8
+	
+#!/bin/bash
+
+function sum(){
+	sum=0
+	begin=$1
+	end=$2
+
+	if (($begin%2==0));then
+		begin=$begin+1
+	fi
+
+	for (( i=$begin; i <= $end; i+=2 ));do
+		((sum+=$i))
+	done
+	
+	echo $sum
+}
+echo ret=$(sum $1 $2)
+	
+2.编写Shell函数并调用,完成命令行传入数值区间的偶数和，
+	如传入1，5实际计算2，4的和，输出6
+	运行效果：$ sh ./t1.sh 1 5
+	ret=6
+	如传入2,5,实际计算2+4=6
+
+#!/bin/bash
+
+function sum(){
+    sum=0
+    begin=$1
+    end=$2
+
+    if (($begin%2!=0));then
+        begin=$begin+1
+    fi
+
+    for (( i=$begin; i <= $end; i+=2 ));do
+        ((sum+=$i))
+    done
+    
+    echo $sum
+}
+
+echo ret=$(sum $1 $2)
+
+3.编写Shell函数并调用,备份指定目录中所有c文件为.bak文件，
+	如命令行未指定目录则默认为当前目录,不考虑子目录
+	
+#!/bin/bash
+
+function bakup(){
+	path=$1
+	if [ ! -d $path ];then
+		echo "invalid path"
+		return 1
+	fi
+
+	cd $path
+	for file in `ls`;do
+		if [ -f $file ] && [ ${file##*.} == "c" ];then
+			echo bakup $file
+			filename=${file%.c}
+			cp $file ${filename}.bak
+		fi
+	done
+	return 0
+}
+
+
+if [[ $# == 0 ]];then
+	bakup .
+else
+	bakup $1
+fi
+
+
+
+	
+4.编写Shell函数并调用,删除指定目录中所有.bak文件，
+	如命令行未指定目录则默认为当前目录,不考虑子目录
+#!/bin/bash
+
+function remove(){
+	path=$1
+	if [ ! -d $path ];then
+		echo "invalid path"
+		return 1
+	fi
+
+	cd $path
+	for file in `ls`;do
+		if [ -f $file ] && [ ${file##*.} == "bak" ];then
+			echo del $file
+			rm $file	
+		fi
+	done
+	return 0
+}
+
+
+if [[ $# == 0 ]];then
+	remove .
+else
+	remove $1
+fi
+
+	
+5.编写Shell函数并调用,备份指定目录中所有c文件为.bak文件，
+	如命令行未指定目录则默认为当前目录,考虑子目录
+#!/bin/bash
+
+function bakup(){
+	path=$1
+	if [ ! -d $path ];then
+		echo "invalid path"
+		return 1
+	fi
+
+	cd $path
+	for file in `ls`;do
+		if [ -f $file ] && [ ${file##*.} == "c" ];then
+			echo bakup $file
+			filename=${file%.c}
+			cp $file ${filename}.bak
+		fi
+		
+		if [ -d $file ];then
+			bakup $file
+			cd ..
+		fi
+	done
+	return 0
+}
+
+
+if [[ $# == 0 ]];then
+	bakup .
+else
+	bakup $1
+fi
+
+
+
+
+6.编写Shell函数并调用,删除指定目录中所有.bak文件，
+	如命令行未指定目录则默认为当前目录,考虑子目录
+	
+#!/bin/bash
+
+function remove(){
+	path=$1
+	if [ ! -d $path ];then
+		echo "invalid path"
+		return 1
+	fi
+
+	cd $path
+	for file in `ls`;do
+		if [ -f $file ] && [ ${file##*.} == "bak" ];then
+			echo del $file
+			rm $file	
+		fi
+		
+		if [ -d $file ];then
+			remove $file
+			cd ..
+		fi
+	done
+	return 0
+}
+
+
+if [[ $# == 0 ]];then
+	remove .
+else
+	remove $1
+fi

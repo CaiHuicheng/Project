@@ -1,0 +1,74 @@
+
+grep 	搜索
+awk 	扫描,excel
+sed		编辑
+
+1.Shell编程
+	Shell不仅是命令解释程序,还是一种弱类型的解释型程序
+	Shell编程就是将多条shell命令按需组合成脚本,实现自动化控制
+	
+2.Hello, Shell
+
+#!/bin/bash
+#this is a demo 
+echo  "hello,shell"
+date     #show datetime
+
+	建议在文件第一行指定shell解释器的位置/版本 #!...
+	其余#用于注释
+	文件后缀通常 .sh
+
+3.命令类别
+	内部命令	外部命令	
+	通过type查看是内还是外部命令
+	内部命令在当前shell的进程中执行
+	外部命令在当前shell创建的子shell中执行
+
+4.命令优先级
+	别名			alias cd=ls         unalias cd
+	关键字		
+	函数			shell代码块
+	内部命令
+	外部命令 
+	
+5.退出状态
+	约定0表示成功
+	返回值用$?保存,用echo $?查看
+
+6.复合命令
+	顺序执行
+	{ cmd1; cmd2;… }    在当前shell执行 
+    (cmd1;cmd2;…)     	在子shell执行
+	
+7.运行方式
+	方式1   source ./test.sh   或    . ./test.sh
+	方式2   加可执行权限 chmod u+x test.sh 执行 ./test.sh
+	方式3   sh ./test.sh  或  bash ./test.sh
+
+8.引号的使用
+	'',单引号	括起来的任何字符都作为普通字符看到
+	``,反引号	括起来的字符串可被作为命令执行
+	"",双引号	除特殊字符($ ` \)外均作普通字符  
+
+9.变量
+	定义	要求变量名,等号,变量值间不能有空格   x=1
+	使用	以$开头使用变量					echo $x
+	消除	unset x
+	
+10.环境变量
+	局部变量
+		只能在其定义的进程中可见
+		查看  set显示所有环境变量包括局部变量
+		设置  直接  myvar=“hello”
+	全局变量
+		对所有shell会话及其子shell有效
+		查看所有: env 
+		设置:先创建局部环境变量再export导出到全局环境中
+		
+			21488	myvar="world"  ; export myvar  ; sh
+				21693  echo $myvar
+
+
+
+	
+	

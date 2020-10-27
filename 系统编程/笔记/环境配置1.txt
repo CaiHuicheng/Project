@@ -1,0 +1,36 @@
+
+
+1.virtualbox + Centos 7
+	a.准备硬件(Red Hat 64-bit), 启动顺序(硬盘/光盘), 插入盘片(centos7 iso)
+	b.启动安装, date&time, installation destination(分区),Begin installation
+	c.root用户密码设置 
+
+2.linux发行版
+	是linux内核+特定一些应用软件的集合,有很多种类
+	
+3.GNU/Linux
+	unix ,版权 + 大型机, unix+pc  => 基本版 => internet 
+	linux是一个内核,如果没有丰富的应用软件,那么再好的内核也是没有广大用户
+	
+4.Centos
+	ubuntu 个人 
+	redhat -> 发行版(收费,工业级代码) -> centos
+	
+5.基本命令
+	poweroff	reboot
+
+
+6.第二种安装方式
+	vagrant : 包装virtualbox从而提供一套命令行接口
+	sysprog1908.box  + key + Vagrnatfile
+	
+	a.vagrant box add --name sysprog sysprog1908.box
+	b.vagrant box list   
+	c.建立一个工作目录(d:\sysprog)(拷贝 key + Vagrnatfile),建立子目录codes
+	d.在d:\sysprog中运行命令(cmd.exe) : vagrant up 
+	e.vagrant ssh 可以远程登陆到该机器(默认用户名 user1,密码 123456)
+	g.vagrant halt	关机
+	h.vagrant reload 重启
+	i.共享目录 codes 
+
+

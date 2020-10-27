@@ -1,0 +1,161 @@
+
+1.C编译流程
+	C源码->预处理->编译->汇编->连接->可执行文件  
+
+	linux上编译的工具集合是gcc
+	gcc -o output file.c		缺省输出文件名a.out
+	gcc结合一些选项可以一步一步完成源码到可执行文件的转换
+	
+2.gcc常用编译选项
+#include <stdio.h>
+int main(void) {
+    for(int i=0;i<5;i++){
+        printf("%d\n",i);
+    }
+    return 0;
+} // gcc hello.c -std=c99 -o hello
+
+#include <stdio.h>
+#include <math.h>		
+int main(int argc, char const *argv[]) {
+    double pi2=3.1415926/2;
+    for(int i=0;i<5;i++)
+        printf("sin(pi/2*%d)=%f\n",i,sin(pi2*i));
+    return 0;
+} // gcc hello.c -lm -std=c99 -o hello
+
+#include <stdio.h>
+int main(void){
+    int x=0;
+#ifdef ABC
+    printf("hello,world!\n");
+#endif
+    printf("hello,gavin!\n");
+   return 0;
+}//gcc hello.c -o hello -DABC
+
+#include <stdio.h>
+#define __USE_GNU   //注意顺序
+#include <math.h>
+int main(int argc, char const *argv[]){
+	int x=0;
+    printf("M_PI_2=%.30Lf\n",M_PI_2l);
+    return 0;
+} // gcc hello.c -o hello -Wall
+
+
+hello.c
+#include "t.h"
+int main() {
+    printf("%s\n",MSG);
+    return 0;
+}
+./header/t.h：
+#include <stdio.h>
+#define MSG "hello111"
+
+//gcc hello.c -o hello  -I /home/user1/codes/cprog/header/
+
+#include <***>	从标准头文件路径中寻找
+#include "***"  先在当前目录寻找，如果没有再到标准头文件路径中寻找
+gcc -I 可以指明头文件寻找位置
+
+思考：
+	gcc  -std=c99 -DABC -o hello hello.c –lm   -Wall -g
+	每个选项的含义
+
+3.程序执行返回值用 echo $? 可查看
+#include <stdio.h>
+
+int main() {
+    printf("%s\n",MSG);
+    exit(1);			//返回状态只有256种	
+}
+
+
+4.printf
+
+#include <stdio.h>
+
+int main() {
+    printf("1234567890\n");
+	printf("%2.2f\n",123.456);
+	printf("%2.4f\n",123.456);
+	printf("%9.4f\n",123.456);
+	printf("%9.6f\n",123.456);
+	printf("%-9.4f\n",123.456);
+	return 0;
+}
+%M.Nf	M:整体宽度 N:小数点精度
+
+5.程序/函数返回状态用 EXIT_SUCCESS/EXIT_FAILURE
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+	int x=1;
+	long y=2;
+	long long z=3;
+	printf("x=%d, y=%ld, z=%lld\n", x, y, z);
+	unsigned int x1=11;
+	unsigned long y1=22;
+	unsigned long long z1=33;
+	printf("x1=%u, y1=%lu, z1=%llu\n", x1, y1, z1);
+	float x2=.1;
+	double y2=.1;
+	long double z2=.1;
+	printf("x2=%f, y2=%f, z2=%Lf\n", x2, y2, z2);
+	return EXIT_SUCCESS;
+}  // gcc hello.c -o hello -Wall
+
+6.具体错误保存在全局变量errno中
+	利用 perror(),strerror()获得errno对应的具体错误信息
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+
+int main(int argc,char **argv){
+  errno=ENOTCONN;  
+  perror("abc");
+  printf("%s\n",strerror(39));
+  return 0;
+}
+
+7.获取命令行参数
+	argc	   命令行参数总个数,包含程序名
+	argv	   指针数组,指向实际参数的,argv[0]指向程序名
+
+#include <stdio.h>
+int main(int argc, char *argv[]){
+  printf("argc = %d\n",argc);
+  int i;
+  for(i = 0; i < argc; i++){
+    printf("argv[%d]=%s\n",i,argv[i]);
+  }
+  return 0;
+}
+
+8.命令行获取用户输入的数据区间，累加其中的偶数
+
+[user1@syxy3 cprog]$ ./hello  1 5
+6
+[user1@syxy3 cprog]$ ./hello  2 5
+6
+
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+	int sum = 0; 
+ 	int num1 = argv[1];
+	int num2 = argv[2];
+	for(int i = num1 ; i<=num2;i++){
+		if(i%2==0){
+			sum += i; 	
+		}
+	}
+	printf("%d到%d的偶数和为：%d",num1,num2,sum);
+	return 0;
+}
+
+
+

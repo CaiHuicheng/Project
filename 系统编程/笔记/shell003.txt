@@ -1,0 +1,49 @@
+
+
+
+2.系统管理命令
+	a.系统信息	uname -a
+	b.磁盘信息	df -h
+	c.目录信息  
+	d.在线用户	whoami  who  w
+	e.以root身份运行	sudo + 命令 (sudoers)
+	f.文件系统	mount umount
+		加载光盘,mount关联,使用,umount取消关联,卸载光盘
+	g.进程管理	top  ps	 kill
+	h.网络相关	ip   ifup  ifdown 
+	
+3.高级命令示例
+	find	
+		查找/usr中除/usr/src外的名字为x/y/z*.h文件
+		find /usr -path /usr/src -prune -o -name "[x-z]*.h" -print
+	
+	grep
+		查找/usr/include目录中h文件含UINT_MAX的文件名并显示前后一行
+		grep -rn UINT_MAX /usr/include/*.h -C 1 
+
+	awk
+		awk '{pattern + action}' {filenames}
+		打印uid>100的用户名及并统计其个数
+		awk -F ':' 'BEGIN{count=0} $3 > 100 {count++; print $1 "\t" $3;} END{prin t "user count is ",count}' /etc/passwd
+
+	sed
+		替换/etc/passwd中所有root为ROOT
+		sed "s/root/ROOT/g" /etc/passwd
+
+		
+1.作业
+	创建新用户 studentA,studentB并以studentA登陆
+	创建目录  ~/a/b/c  
+	创建空文件   ~/a/b/c/test1.me,gzip打包a目录为 t1.tar.gz,删除 a
+	创建目录codes,解压t1.tar.gz到codes,删除t1.tar.gz,工作目录设为codes
+	编辑test1.me内容为helloworld,查找gcc位置,浏览gcc帮助
+	test1.me移动到codes并改名为hello.c,编译并运行
+	查看文件内容,查找main
+	查找系统中所有名为hello.c的文件
+	建立~/hello2.c 软链接
+	修改hello2.c为无限循环每秒输出hello+n,编译为test1,并执行
+	去掉test1自身可执行权限,验证是否能执行
+	User1登陆移动test1给sudentB,studentB登陆,看能否执行,kill杀死
+	User1登陆,删除创建的2个用户及相关目录
+	
+		

@@ -1,0 +1,319 @@
+进程 + 信号
+
+进程间通信概述
+	信号可通知进程特定事件但无法相互传递数据
+	进程间通信指不同进程间交换/传递信息(IPC)
+	按功能分类
+		通信	发送/接收
+		同步	资源协调
+		信号	标准/实时
+	同一功能多个工具的原因
+		不同工具起始于不同UNIX版本
+			FIFO(System V IPC) 而 socket(BSD)
+		新工具弥补旧工具的不足
+			POSIX IPC 是对 System V IPC类似工具的改进
+
+		
+	通信类IPC
+		数据传输
+			经过用户空间和内核空间的两次访问
+			关键是写入和读取的概念,分为:
+				字节流:采用文件是一个字节序列的模型
+				消息:以分隔符分割的消息,每次读写是整条消息,有边界
+				伪终端:特殊情况下的通信工具
+		共享内存
+			通信无需系统调用及用户/内核空间数据传输,速度非常快
+			分为:System V 共享内存,POSIX共享内存,内存映射
+			注意
+				一个进程在更新共享内存中数据时另一个不应该读取,
+					通常使用信号量来同步
+				共享内存中数据对所有使用该共享内存的进程可见
+		同步
+			信号量
+				是内核维护的整数值,是为了预约对共享资源的独占访问
+				进程可增加或减少信号量的值,<0时内核阻塞该进程操作
+			文件锁
+				用来协调同一文件的多个进程的动作同步方法之一
+				分为:读锁(共享锁)	, 写锁(互斥锁)	
+				任意进程都可持有同一文件(或同一文件某段区)的读锁
+				当一个进程持有写锁后其他进程将无法获取该文件的读写锁
+			互斥体和条件变量		
+				用于POSIX线程
+
+管道
+	管道(pipe)是Unix上最古老的IPC工具 
+	
+	特点
+		只能实现有亲缘关系进程间通信
+			父子进程或者兄弟进程之间
+		单向字节流		无消息边界概念,有序
+		管道本质是一个内核内存维护的缓冲器
+			存储能力有限,写满未读取会阻塞后续写操作
+			如果无数据时读取会阻塞
+			如果写入端关闭,读取完剩余数据会看到EOF
+			如果读端未打开时写会发SIGPIPE信号,写有EPIPE错误
+
+	创建
+		int pipe(int pipefd[2]);
+		成功后在pipefd数组中返回两个打开的文件描述符
+			pipefd[0]表示管道的读取端
+			pipefd[1]表示管道的写入端
+		通常在父进程创建,子进程继承,实现单向通行
+		通常使用2个管道实现双向数据通信
+
+示例1：
+	单向通信  
+		父进程接收用户键盘输入写入管道，
+		子进程从管道接收数据并显示屏幕
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+
+void err_sys(const char *msg){
+    perror(msg);
+    exit(EXIT_FAILURE);
+}
+
+int main(void){
+    char buf[80]={0};
+
+    int pfd[2];
+    if(pipe(pfd) == -1)
+        err_sys("pipe");
+
+    if(fork()==0){
+        close(pfd[1]);
+        memset(buf,0,sizeof(buf));
+        for(;;) {
+            int recv_len=read(pfd[0],buf,sizeof(buf));
+            if(recv_len == -1)
+                err_sys("read");
+            if(recv_len == 0) {
+                printf("read EOF\n");
+                break;
+            }
+            buf[recv_len]='\0';
+            printf("recv:%d:%s\n",recv_len,buf);
+        }
+        close(pfd[0]);
+        exit(EXIT_SUCCESS);
+    }
+
+    close(pfd[0]);
+    for(;;){
+        memset(buf,0,sizeof(buf));
+        
+        fgets(buf,sizeof(buf),stdin);
+        if(strncmp(buf,"quit\n",5) == 0)
+            break;
+        write(pfd[1],buf,strlen(buf)-1);
+    }
+    
+    close(pfd[1]);             //child read EOF
+    exit(EXIT_SUCCESS);
+}
+	
+示例2：
+	双向通信
+	父进程接收用户键盘输入，写入管道1
+	子进程从管道1接收用户数据，改为全大写并写入管道2
+	父进程从管道2接收已处理数据并显示
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+
+#define BUF_SIZE 80
+
+void err_sys(const char *msg){
+    perror(msg);
+    exit(EXIT_FAILURE);
+}
+
+void strupper(char *buf,int len){
+    char *ch=buf;
+    for(int i=0;i<len;i++){
+        if((*ch >= 'a') && (*ch <= 'z'))
+            *ch&=0xdf;        //大写转小写*ch|=0x20;
+        ch++;
+    }
+}
+
+int main(void){
+    char buf[BUF_SIZE];
+    int pfd1[2],pfd2[2];
+    if(pipe(pfd1) == -1 || pipe(pfd2) == -1)
+        err_sys("pipe");
+
+    if(fork() == 0){
+        close(pfd1[1]);
+        close(pfd2[0]);
+
+        for(;;) {
+            memset(buf,0,sizeof(buf));
+            int recv_len=read(pfd1[0],buf,sizeof(buf));
+            if(recv_len == -1)
+                err_sys("read");
+            if(recv_len == 0) {
+                printf("read EOF\n");
+                break;
+            }
+            buf[recv_len]='\0';
+            strupper(buf,recv_len);
+            write(pfd2[1],buf,strlen(buf));
+        }
+
+        close(pfd1[0]);
+        close(pfd2[1]);
+        exit(EXIT_SUCCESS);
+    }
+
+    close(pfd1[0]);
+    close(pfd2[1]);
+    for(;;){
+        memset(buf,0,sizeof(buf));
+        fputs("send:",stdout);
+        fgets(buf,sizeof(buf),stdin);
+        if(strncmp(buf,"quit\n",5) == 0)
+            break;
+        write(pfd1[1],buf,strlen(buf)-1);
+        int recv_len=read(pfd2[0],buf,sizeof(buf));
+        if(recv_len == -1)
+            err_sys("read");
+        if(recv_len == 0)
+            break;
+        buf[recv_len]='\0';
+        printf("recv:%s\n",buf);
+    }
+    close(pfd1[1]);         //子read到EOF
+    close(pfd2[0]);
+    exit(EXIT_SUCCESS);
+}
+
+
+FIFO
+	命名管道/有名管道,功能与管道类似
+	区别
+		FIFO在文件系统中有路径名,操作与普通文件一样
+			文件类型为 p   (ls -l)
+		FIFO可以用于非亲缘进程间通信
+
+	创建
+		shell	mkfifo  	mkfifo -m=rw /tmp/myfifo
+		c语言	mkfifo()
+		一旦FIFO被创建,任何进程只要有权限都可使用它
+
+示例3：
+	利用FIFO实现不同程序间通信
+	serv.c:创建FIFO，并等待接收
+	clnt.c:使用FIFO，接收用户输入并发送到FIFO
+	
+serv.c:
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+#include <errno.h>
+
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#define MYFIFO      "/tmp/myfifo"   //有名管道文件名
+#define BUFFER_SIZE PIPE_BUF        //limits.h
+
+void err_sys(const char *msg){
+    perror(msg);
+    exit(EXIT_FAILURE);
+}
+
+int main(){
+  /* 判断有名管道是否已存在，若尚未创建，则以相应的权限创建*/
+  if (access(MYFIFO, F_OK) == -1) {
+      if ((mkfifo(MYFIFO, 0666) == -1) && (errno != EEXIST))
+        err_sys("mkfifo");
+  }
+
+  int fd = open(MYFIFO, O_RDONLY);  //以只读阻塞方式打开有名管道
+  if (fd == -1)
+    exit(EXIT_FAILURE);
+
+  char buff[BUFFER_SIZE];
+  int  nread;
+  for(;;) {
+      memset(buff, 0, sizeof(buff));
+      if ((nread = read(fd, buff, BUFFER_SIZE)) == -1)
+        err_sys("read");
+      if( nread == 0){
+        printf("EOF\n");
+        break;
+      }
+      printf("recv: %s\n", buff);
+
+  }
+
+  close(fd);
+  unlink(MYFIFO);           //删除fifo
+  exit(EXIT_SUCCESS);
+}
+
+clnt.c:
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <signal.h>
+
+#define MYFIFO  "/tmp/myfifo"       //有名管道文件名
+#define BUFFER_SIZE     PIPE_BUF    //limits.h
+
+void err_sys(const char *msg){
+    perror(msg);
+    exit(EXIT_FAILURE);
+}
+
+void handler(int signo){
+    printf("Caught %d:%s\n",signo, strsignal(signo));
+	exit(EXIT_FAILURE);
+}
+
+int main(int argc, char * argv[]){
+    signal(SIGPIPE,handler);            //处理serv端提前退出
+    int fd = open(MYFIFO, O_WRONLY);    //以只写阻塞方式打开FIFO管道
+    if (fd == -1)
+        err_sys("open");
+
+    char sendbuf[BUFFER_SIZE];
+    for(;;){
+        memset(sendbuf,0,sizeof(sendbuf));
+        fputs("send:",stdout);
+        fgets(sendbuf,sizeof(sendbuf),stdin);
+        if(strncmp(sendbuf,"quit\n",5) == 0)
+            break;
+        if(write(fd, sendbuf, strlen(sendbuf)-1) == -1)
+            err_sys("write");
+    }
+    close(fd);
+    exit(EXIT_SUCCESS);
+}
+
+
+作业：
+子进程用PIPE向父进程发”hello,world”,父进程收到后显示
+子进程用FIFO向父进程发”hello,world”,父进程收到后显示

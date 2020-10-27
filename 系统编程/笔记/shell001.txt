@@ -1,0 +1,77 @@
+1.shell命令概述
+	shell是OS给用户提供的一个交互接口 命令行/GUI
+	
+	内核实现了很多系统服务,
+		通过系统调用(system call)的方式向外界提供服务接口
+	shell 使用方法分两类: 交互式 编程式
+	首先学习交换方式,熟悉各种常用的管理命令
+	然后组合多种命令,实现编程式  shell编程
+	
+2.命令概述
+	命令  [选项]  [参数]
+	ls
+	ls -a
+	ls -l
+	ls -a -l
+	ls -al
+	ls -al /etc
+	
+3.学会使用帮助系统!!!
+	形式1: ls --help
+		?ls显示采用逆序 
+	形式2: man ls
+		通过 /待查找关键字 方式快速检索手册文档 
+		通过 'n' 跳到下一个关键字位置
+		通过 j,k等按键(雷同vi控制) 控制光标位置
+		通过 q 退出
+		
+		man man 查看手册的编排章节  
+1   shell commands                                          		
+2   System calls                                 
+3   Library calls                             
+        
+		man 3 printf  在明确知道查找关键字所在章节的情况下
+		man -k printf 罗列所有章节与查找关键字相关的位置
+	
+	形式3: info ls	
+	
+4.简述文件系统
+	p.18 简单描述了各个顶层目录的文件归类情况
+	家目录  /home下面
+	显示当前目录的绝对路径命令  pwd
+	掌握相对和绝对路径
+		[user1@syxy3 ~]$ cd /var/log/tuned
+		[user1@syxy3 tuned]$ pwd
+		/var/log/tuned
+		[user1@syxy3 tuned]$ cd
+		[user1@syxy3 ~]$ cd ../../var/log/tuned
+		[user1@syxy3 tuned]$ pwd
+		/var/log/tuned
+
+5.基本命令
+	文件相关命令
+		创建文件	touch filename
+		创建目录	mkdir directory_name
+		删除		rm filename
+		拷贝		cp 源 目标  
+		改名		mv
+		移动		mv
+		查找命令	which  which cd    which poweroff
+		查找文件	find   find / -name aaa
+
+6.实战1
+查找ls命令所在目录	
+查看ls手册,找到以K,M,G 而不是字节表示文件大小的方法	
+在user1主目录创建子目录test1	
+分别用绝对和相对路径方式进入test1	
+创建空文件hello.c	
+改名为t1.c	
+复制为t2.c	
+gzip压缩并打包所有t开头的文件为 tt.tar.gz	
+删除t1.c, t2.c	
+解压缩tt.tar.gz 到 user1主目录	并查看t1.c内容	
+vi编辑t1.c为hello,world的c程序	
+查找t1.c中main所在行的行号及内容,并输出到out.txt
+查找t2.c中main所在行的行号及内容,并追加输出到out.txt
+
+                                                                                   

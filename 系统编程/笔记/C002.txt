@@ -1,0 +1,95 @@
+
+
+1.获取命令行参数,求和
+	$ ./t1 1 2 3
+	out:6
+	$ ./t1 2 3
+	out:5
+#include <stdio.h>
+
+int main(int argc, char *argv[]){
+  int sum=0;
+  for(int i = 1; i < argc; i++){
+    printf("argv[%d]=%s\n",i,argv[i]);
+    sum+=atoi(argv[i]);
+  }
+  printf("Sum=%d\n",s);
+  return 0;
+}
+
+2.环境变量
+	environ(7) 	getenv(3)
+#include<stdio.h>
+#include<stdlib.h>
+
+extern char **environ;
+
+int main(){
+  for(int i = 0; environ[i]; i++)
+    printf("[%d]: %s\n", i, environ[i]);
+  
+  printf("PATH=%s\n",getenv("PATH"));
+  return 0;
+}
+
+3.程序实现int整数的2进制格式(32bit)打印
+	$ ./t1 5
+	out:00000000 00000000 00000000 00000101
+
+#include <stdio.h>
+#include <limits.h>
+
+int main( ){
+    int x=INT_MAX;
+    int i=sizeof(int)*8-1;
+    for (i; i >= 0; --i)  {
+        if(x&(1<<i))
+            printf("1");
+        else
+            printf("0");
+    }
+    printf("\n");
+    return 0;
+}
+
+4.作业
+周二晚上10点前上交,png截图(左边运行效果,右边代码)
+a.命令行获取整数n和m,求n+(n+1)+…m
+	$./t1 2 5
+	out:14
+	$./t1 1 2
+	out:3
+	
+b.用qsort()完成字符串排序,bsearch()检索
+	待排序字符串为
+		char *arr[]={"world","hello","football"};
+	检索字符串从命令行中来
+		$./t2 football
+		before	: world | hello | football |
+		after   : football | hello | world |
+		[0] : football
+		$./t2 football0
+		before	: world | hello | football |
+		after   : football | hello | world |
+		Not found
+		
+
+5.库函数
+	功能复用而编译的二进制文件
+	静态和动态两种
+		静态库  libxxx.a
+			编译成的文件比较大,
+			执行程序不需要外部的函数库支持
+			静态库改变后需重新编译程序
+
+		动态库  libxxx.so
+			可执行文件比较小,
+			程序运行环境中必须提供相应的库
+			升级比较方便
+
+		
+
+	
+
+
+

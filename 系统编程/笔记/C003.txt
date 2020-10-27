@@ -1,0 +1,350 @@
+
+1.qsort+bsearch
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <string.h>
+
+	void print_arr(char **array, size_t len){ 
+		for(int i=0; i<len; i++) 
+			printf("%s | ", array[i]);
+		putchar('\n');
+	}
+
+	int compar_str(const void *s1, const void *s2){
+		return strcmp(*(char **)s1,*(char **)s2);  
+	}
+
+	int main(int argc, char const *argv[]){
+		char *arr[]={"world","hello","football"};
+		int num=sizeof(arr)/sizeof(char *);
+
+		printf("before\t: ");
+		print_arr(arr,num);
+		
+		qsort(arr,num,sizeof(char *),compar_str);
+		printf("after\t: ");
+		print_arr(arr,num);
+
+		char *key=(char *)argv[1];
+		if( key == NULL ){
+			printf("need parameter\n");
+			return 1;
+		}
+
+		char **outstring=bsearch(&key,arr,num,sizeof(char *),compar_str);
+		if(outstring != NULL){
+			// for(int i=0;i<num;i++){
+			//  if(&arr[i] == outstring){
+			//      printf("[%d]:%s\n",i,*outstring);
+			//      break;
+			//  }
+			// }
+			printf(“[%ld]:%s\n”,outstring-arr,*outstring);  //已排序直接减
+		}
+		else
+			printf("Not found\n");
+		
+		return 0;
+	}
+
+
+2.gdb
+	调试程序需在编译时加入-g选项
+
+	#include <stdio.h>
+	#include <stdlib.h>
+
+	int sum_up(int n){
+	  int sum=0;
+	  for(int i = 1; i <= n; i++){
+		sum += i;
+	  }
+	  return sum;
+	}
+
+	int main(int argc, char *argv[]){
+	  if(argc != 2){
+		printf("Usage : %s <number> \n", argv[0]);
+		exit(EXIT_FAILURE);
+	  }
+	  int input = atoi(argv[1]);
+	  if(input > 0)
+		printf("1+2+...+%d=%d\n", input, sum_up(input));
+	  else
+		printf("input must number > 0 \n");
+	  return EXIT_SUCCESS;
+	}
+
+	gdb
+	quit        	(q)  
+	gdb tt      	(file tt)
+	l       	(list)
+	l 10,20
+	set args 4  
+	run       		(r)
+	b 9    
+	b 18   
+	b 7
+	info breakpoints 	(i b)
+	disable b 3   
+	info b
+	enable b 3    
+	info b
+	delete breakpoints 3   
+	info b
+	run
+	print input
+	n       	(next)
+	s        	(step)   再做4次s
+	print i 
+	c       	(continue)(finish返回到调用处)
+	print sum   
+	c
+
+
+3.make
+	按makefile自动化构建程序
+
+	a.c:
+	#include <stdio.h>
+	void funca(){
+	  printf("func-a!!\n");  
+	}
+
+	b.c:
+	#include <stdio.h>
+	void funcb(int x){  
+	   printf("func-b:%d\n",x);  
+	}
+
+	userdef.h:
+	#define NUM 10
+	void funca();
+	void funcb(int x);
+
+	all.c:
+	#include <stdio.h>
+	#include "userdef.h"
+	int main(){
+		funca();
+		funcb(NUM);
+		return 0;
+	}
+
+	makefile1:
+	abc:all.o a.o b.o
+		gcc -o abc all.o a.o b.o
+	all.o:all.c userdef.h
+		gcc -c all.c 
+	a.o:a.c
+		gcc -c a.c
+	b.o:b.c
+		gcc -c b.c
+	clean:
+		rm abc all.o a.o b.o
+		
+	makefile2:
+	objects = all.o a.o b.o
+	abc:$(objects)
+		gcc -o abc $(objects)
+	all.o:all.c userdef.h
+		gcc -c all.c 
+	a.o:a.c
+		gcc -c a.c
+	b.o:b.c
+		gcc -c b.c
+	clean:
+		rm abc $(objects)
+
+	makefile3:
+	objects = all.o a.o b.o
+	abc:$(objects)
+		gcc -o abc $(objects)
+	all.o:userdef.h
+	a.o:a.c
+	b.o:b.c
+	.PHONY : clean  #伪目标
+	clean:
+		-rm abc $(objects)
+
+
+4.标准I/O
+	man 7 libc
+	
+	stdio.h	包括了文件操作相关的函数、常量声明
+		标准I/O库包装文件为流 ,流是无结构的字节序列
+		标准I/O提供用户空间缓冲功能以减少系统调用次数
+		标准I/O用文件指针(FILE *)实现对特定‘流’的关联
+
+5.标准I/O的缓存类别
+	三类缓存      			fflush()可主动刷新缓存
+	全缓存	malloc()分配
+	行缓存	遇到换行符或缓存满才执行实际I/O操作
+	无缓存
+
+6.标准流
+	进程启动时预先打开3个标准流
+		标准输入流		stdin	键盘	行缓冲	
+		标准输出流		stdout	屏幕	行缓冲
+		标准错误输出流	stderr	屏幕	无缓冲
+	键盘输入 Ctrl-D 表示 EOF
+
+#include <stdio.h>
+int main(){
+    fprintf(stdout, "input number:");
+    int n=0;
+    fscanf(stdin,"%d",&n);
+    fprintf(stdout, "number= %d\n",n);
+    return 0;
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]){
+  char c;
+  while((c = fgetc(stdin)) != EOF  ){      //ctrl+D表示EOF
+    if(c == 'q'){
+      fputs("input q!", stderr);  //stderr无缓冲,stdout行缓冲
+      continue;
+    }
+    fputc(c, stdout);       //测试数据用12q3
+    fflush(stdout);      //注释对比
+  }
+  return 0;
+}
+
+7.文件流的操作
+	man fopen
+	man fclose
+
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char const *argv[]){
+  FILE *fp=NULL;
+  if ((fp=freopen("out.txt", "w", stdout)) == NULL){
+    perror("freopen");
+    exit(EXIT_FAILURE);
+  }
+  
+  int c;
+  while( (c=getchar()) != EOF)
+    putchar(c);
+
+  freopen("/dev/pts/1","w",stdout);   //恢复重定向,终端名与OS相关, tty查终端名
+  printf("recv EOF by Ctrl-D\n");           //可开两个终端改/dev/pts/0,重定向0号终端
+
+  while( (c=getchar()) != EOF)
+    putchar(c);
+  return 0;
+}
+	
+
+8.读写
+基于字符的I/O
+	读字符:	fgetc()      getc()      	getchar()
+	写字符:	fputc()      putc()     putchar()
+	读写出错或达到文件尾时返回EOF
+基于行的I/O
+	读行:		fgets()	gets()
+	写行:		fputs()	puts()
+判断流结束或出错	
+	feof()	ferror()    clearerr()清除结束和出错	
+
+显示文件内容并计算字符数
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]){
+  if(argc != 2){
+    printf("Usage: %s filename\n",argv[0]);
+    exit(EXIT_FAILURE);
+  }
+  FILE *fp=NULL;
+  if((fp=fopen(argv[1],"r")) == NULL){
+    perror("fopen");
+    exit(EXIT_FAILURE);
+  }
+  char c;
+  int n=0;
+  while((c=fgetc(fp)) != EOF){
+    fputc(c,stdout);
+    n++;
+  }
+  fclose(fp);
+  printf("file size = %d\n",n);
+  exit(EXIT_SUCCESS);
+}
+	
+9.二进制I/O
+	读	fread()
+	写	fwrite()
+
+10.流定位
+	fseek()
+		SEEK_SET	文件头
+		SEEK_CUR	当前位置
+		SEEK_END	文件尾
+	rewind()	定位到文件头
+	ftell()		获得当前位置
+
+
+11.平均年龄
+users.lst:
+1501001	张三1	18
+1501002	张三2	19
+1501003	张三3	17
+1501004	张三4	18
+
+
+main.c:
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SIZE    10
+
+typedef struct _stu{
+    char uid[SIZE];
+    char uname[SIZE];
+    int age;
+} STU;
+
+int main(int argc, char const *argv[]){
+    FILE *fp=fopen("users.lst","r");
+    FILE *fwp=fopen("users.bak","wb+");
+    if(fp == NULL || fwp == NULL ){
+        perror("fopen");
+        exit(EXIT_FAILURE);
+    }
+
+    STU stu;
+    while( fscanf(fp,"%s %s %d",(char *)&stu.uid, \
+        (char *)&stu.uname,&stu.age) != EOF){
+        fwrite(&stu,sizeof(STU),1,fwp);
+    }
+    fclose(fp);
+    rewind(fwp);		//定位到文件头
+
+    int number=0;
+    float sum_age=0;
+    while(fread(&stu,sizeof(STU),1,fwp) != 0){
+        printf("%s:%s:%d\n",stu.uid,stu.uname,stu.age );
+        number++;
+        sum_age+=stu.age;
+    }
+
+    printf("average age: %5.2f\n",sum_age/number);
+    fclose(fwp);
+    return 0;
+}
+
+
+12.作业
+显示文件指定行范围的内容
+数据库操作
+
+
+
+
+
+
+
+	
