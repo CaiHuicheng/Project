@@ -1,0 +1,9 @@
+在真实的实例中，您需要通过 CGI 程序执行许多操作。这里有一个专为 C++ 程序而编写的 CGI 库，
+可以从 ftp://ftp.gnu.org/gnu/cgicc/ 上下载这个 CGI 库，并按照下面的步骤安装库：
+
+$tar xzf cgicc-X.X.X.tar.gz 
+$cd cgicc-X.X.X/ 
+$./configure --prefix=/usr 
+$make
+$make install
+可以点击 C++ CGI Lib Documentation，查看相关的库文档。

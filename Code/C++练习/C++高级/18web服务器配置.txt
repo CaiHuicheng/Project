@@ -1,0 +1,17 @@
+所有由 HTTP 服务器执行的 CGI 程序，都必须在预配置的目录中。
+该目录称为 CGI 目录，按照惯例命名为 /var/www/cgi-bin。
+虽然 CGI 文件是 C++ 可执行文件，但是按照惯例它的扩展名是 .cgi。
+默认情况下，Apache Web 服务器会配置在 /var/www/cgi-bin 
+中运行 CGI 程序。如果您想指定其他目录来运行 CGI 脚本，
+可以在 httpd.conf 文件中修改以下部分：
+
+<Directory "/var/www/cgi-bin">
+   AllowOverride None
+   Options ExecCGI
+   Order allow,deny
+   Allow from all
+</Directory>
+ 
+<Directory "/var/www/cgi-bin">
+Options All
+</Directory>
