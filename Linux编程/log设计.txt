@@ -1,0 +1,139 @@
+一、信息类别与等级
+我们知道，程序内可能出现各种异常，有的异常很严重，一不注意就发生coredump；有的异常只是可能对程序的运行产生影响，但不至于挂掉；有的异常是隐蔽的，虽说现在没对系统产生明显影响，但是不加处理也终究是个隐患。如果我们对这些异常都使用printf语句的话，我们就区分不了哪些异常重要哪些不重要了，所以我们首先得给信息分类别评等级（severity）。我的划分是这样的：
+fatal           致命错误
+alarm         需要立即纠正的错误
+error          需要关注的错误
+warning      警告，可能存在某种差错
+info            一般提示信息
+debug        调试信息 
+ 
+
+代码定义可以这么写：
+
+#define FATAL      1
+#define ALARM      2
+#define ERROR      3
+#define WARN       4
+#define INFO       5
+#define DEBUG      6
+ 
+
+二、log的设计
+根据我们上面规定的打印等级，我们很容易设计出相应的debug log，闲话少说，先上代码：
+#define MY_LOG(level, fmt, args...)  do{  \
+    if(BIT_ON(debug_flag,level)){  \
+        printf("[%s]:", __FUNCTION__); \
+        printf(fmt, ##args); \
+    }  \
+}while(0)
+当然我们还需要定义一套设置debug level的方法，我的思路是这样的：
+
+采用bit-map思想，定义一个unsigned int的数，这个数的而每一位表示一个级别，比如一个unsigned int的数就可以表示32个级别
+定义相应的函数/宏定义，去设置相应的位
+ 
+
+根据以上想法，可以设置出下面一系列的操作：
+
+#define PRESENT_BIT32(x)        (((uint32)((uint32)1<<(x))))
+#define BIT_ON32(m, b)            (((m) & PRESENT_BIT32(b)) != 0)
+#define SET_BIT32(m, b)            ((m) |= PRESENT_BIT32(b))
+#define CLEAR_BIT32(m, b)        ((m) &= ~PRESENT_BIT32(b))
+解释：
+
+PRESENT_BIT32(x)    :对应level的位的位置
+BIT_ON32(m, b)      ：判定某一位是否为1
+SET_BIT32(m, b)     ：设置指定位为1
+CLEAR_BIT32(m, b)   ：将指定为设置为0
+ 
+
+上面我们使用了宏定义来定义出带级别的LOG，那该怎么使用这些LOG呢？使用方法如下：
+
+复制代码
+if(pthread_create(&thread2_id, NULL, (void*)msg_sender2, NULL))
+{
+    MY_LOG(FATAL,"create handler thread fail!\n");
+    return -1;
+ }
+
+
+MY_LOG(DEBUG,"I have recieved a message!\n");
+MY_LOG(DEBUG,"msgtype:%d   msg_src:%d  dst:%d\n\n",msg->hdr.msg_type,msg->hdr.msg_src,msg->hdr.msg_dst);
+复制代码
+ 
+ 
+当然使用前需要先打开相应的log开关，比如我想看debug的log，可以这么做：
+SET_BIT(debug_flag, DEBUG);
+ 
+这样子我们就将系统的debug级别定义为DEBUG了。
+ 
+再说一个打印的小技巧：给你的打印上颜色！
+ 
+printf("\033[46;31m[%s:%d]\033[0m "#fmt" errno=%d, %m\r\n", __func__, __LINE__, ##args, errno, errno);
+ 
+上面printf时在Linux命令行下打印出带颜色的字体，方便一眼区分不同种类的调试信息，只需要加上一些颜色代码，例如：这里的46代表底色, 31代表字体的颜色。
+
+使用ascii code 是对颜色调用的始末格式如下：
+
+\033[ ; m …… \033[0m
+ 
+后面哪个 ”\033[0m” 是对前面哪个颜色载入的结束，恢复到终端原来的背景色和字体色，可以把后面哪个修改成如下试试：
+
+#define DEBUG_ERR(fmt, args...) printf("\033[46;31m[%s:%d]\033[40;37m "#fmt" errno=%d, %m\r\n", __func__, __LINE__, ##args, errno, errno);
+ 
+
+下面列出 ascii code 的颜色值：
+
+    字背景颜色范围:40----49                           字颜色:30-----------39
+
+         40:黑                                                       30:黑
+
+         41:深红                                                    31:红
+
+         42:绿                                                       32:绿
+
+         43:黄色                                                    33:黄
+
+         44:蓝色                                                    34:蓝色
+
+         45:紫色                                                    35:紫色
+
+         46:深绿                                                    36:深绿
+
+         47:白色                                                    37:白色
+
+ 
+
+记忆颜色格式太麻烦了，我们将它搞成宏定义吧，这样以后用起来就方便得多。
+
+复制代码
+#define NONE                 "\e[0m"
+#define BLACK                "\e[0;30m"
+#define L_BLACK              "\e[1;30m"
+#define RED                  "\e[0;31m"
+#define L_RED                "\e[1;31m"
+#define GREEN                "\e[0;32m"
+#define L_GREEN              "\e[1;32m"
+#define BROWN                "\e[0;33m"
+#define YELLOW               "\e[1;33m"
+#define BLUE                 "\e[0;34m"
+#define L_BLUE               "\e[1;34m"
+#define PURPLE               "\e[0;35m"
+#define L_PURPLE             "\e[1;35m"
+#define CYAN                 "\e[0;36m"
+#define L_CYAN               "\e[1;36m"
+#define GRAY                 "\e[0;37m"
+#define WHITE                "\e[1;37m"
+
+#define BOLD                 "\e[1m"
+#define UNDERLINE            "\e[4m"
+#define BLINK                "\e[5m"
+#define REVERSE              "\e[7m"
+#define HIDE                 "\e[8m"
+#define CLEAR                "\e[2J"
+#define CLRLINE              "\r\e[K" //or "\e[1K\r"
+
+
+#define DEBUG_ERROR(fmt, args...) do{  \
+    printf(RED"[%s]:"NONE, __FUNCTION__);  \
+    printf(fmt, ##args);  \
+    }while(0);
