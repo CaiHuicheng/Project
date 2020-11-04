@@ -1,0 +1,4 @@
+VS 2017
+
+opencv3.4
+haarcascade_frontalface_alt2.xml
