@@ -26,7 +26,8 @@ private:
         {
             if (CSingleton::m_pInstance)
             {
-                delete CSingleton::m_pInstance;CSingleton::m_pInstance = nullptr;
+                delete CSingleton::m_pInstance;
+				CSingleton::m_pInstance = nullptr;
             }
         }
     };
