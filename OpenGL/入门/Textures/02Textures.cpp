@@ -6,7 +6,7 @@
 #include "include/stb_image.h"
 
 #include <iostream>
-#include <string>
+#include <windows.h>
 
 using namespace std;
 
@@ -19,8 +19,7 @@ const unsigned int SCR_HEIGHT = 600;
 
 int main()
 {
-	// glfw: initialize and configure
-	// ------------------------------
+	// 初始化，配置版本号，配置核心模式
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -30,8 +29,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-	// glfw window creation
-	// --------------------
+	// 创建窗口
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
 	if (window == NULL)
 	{
@@ -40,22 +38,79 @@ int main()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
+	// 注册窗口大小变化的回调函数
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-	// glad: load all OpenGL function pointers
-	// ---------------------------------------
+	// 初始化glad
+	// 我们给GLAD传入了用来加载系统相关的OpenGL函数指针地址的函数。
+	// GLFW给我们的是glfwGetProcAddress，它根据我们编译的系统定义了正确的函数。
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
+		glfwTerminate();
+		glfwDestroyWindow(window);
 		return -1;
 	}
 
 	// build and compile our shader zprogram
-	// ------------------------------------
-	Shader ourShader("texture.vs", "texture.fs");
+	Shader ourShader("GLSL/texture.vs", "GLSL/texture.fs");
+
+	// 加载图片纹理
+	int width, height, nrChannels;
+	unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
+	if (!data)
+	{
+		std::cout << "Failed to load texture" << std::endl;
+		return 0;
+	}
+
+	// 创建纹理内存对象
+	unsigned int texture1, texture2;
+	// texture 1
+	glGenTextures(1, &texture1);
+	// 绑定纹理对象
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	// 设置环绕	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// 设置过滤
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	stbi_image_free(data);
+
+
+
+	// 因为OpenGL要求y轴0.0坐标是在图片的底部的，但是图片的y轴0.0坐标通常在顶部。
+	// 为防止图像颠倒，在图像加载时翻转y轴
+	stbi_set_flip_vertically_on_load(true);
+	data = stbi_load("awesomeface.png", &width, &height, &nrChannels, 0);
+	if (!data)
+	{
+		std::cout << "Failed to load texture" << std::endl;
+		return 0;
+	}
+
+	// texture 2
+	glGenTextures(1, &texture2);
+	// 绑定纹理对象
+	glBindTexture(GL_TEXTURE_2D, texture2);
+	// 设置环绕	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// 设置过滤
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	stbi_image_free(data);
 
 	// set up vertex data (and buffer(s)) and configure vertex attributes
-	// ------------------------------------------------------------------
 	float vertices[] = {
 		// positions          // colors           // texture coords
 		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
@@ -68,105 +123,62 @@ int main()
 		1, 2, 3  // second triangle
 	};
 	unsigned int VBO, VAO, EBO;
+	// 创建一个顶点数组对象
 	glGenVertexArrays(1, &VAO);
+	// 创建一个内存缓冲对象
 	glGenBuffers(1, &VBO);
+	// 创建一个内存缓冲对象
 	glGenBuffers(1, &EBO);
-
+	// 首先绑定顶点数组对象
 	glBindVertexArray(VAO);
-
+	// 然后将内存对象绑定为顶点缓冲对象，向缓冲内存写入数据
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
+	//索引缓冲对象绑定内存对象，向索引缓冲对象写入数据
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	// position attribute
+	// 位置属性
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	// color attribute
+	// 颜色属性
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-	// texture coord attribute
+	// 纹理属性
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
+	// 请注意，这是允许的，
+	// 对glVertexAttribPointer的调用将VBO注册为顶点属性的绑定顶点缓冲区对象，
+	// 因此我们可以安全地解除绑定
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// 您可以在之后取消绑定VAO，以便其他VAO调用不会意外地修改此VAO，但这种情况很少发生。
+	// 修改其他VAO需要调用glBindVertexArray，因此我们通常不会在不直接需要时取消绑定VAO（也不是VBO）。
+	//glBindVertexArray(0);
 
 
-	// load and create a texture 
-	// -------------------------
-	unsigned int texture1, texture2;
-	// texture 1
-	// ---------
-	glGenTextures(1, &texture1);
-	glBindTexture(GL_TEXTURE_2D, texture1); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
-										   // set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// load image, create texture and generate mipmaps
-	int width, height, nrChannels;
-	stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-	unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-	{
-		std::cout << "Failed to load texture" << std::endl;
-	}
-	stbi_image_free(data);
-	// texture 2
-	glGenTextures(1, &texture2);
-	glBindTexture(GL_TEXTURE_2D, texture2);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// load image, create texture and generate mipmaps
-	
-	data = stbi_load("awesomeface.png", &width, &height, &nrChannels, 0);
-	if (data)
-	{
-		// note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-	{
-		std::cout << "Failed to load texture" << std::endl;
-	}
-	stbi_image_free(data);
-
-	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
-	// -------------------------------------------------------------------------------------------
-	ourShader.use(); // don't forget to activate/use the shader before setting uniforms!
-					 // either set it manually like so:
+	// 激活着色器程序
+	ourShader.use();
+	// 设置每个采样器的方式告诉OpenGL每个着色器采样器属于哪个纹理单元
+	// 我们只需要设置一次即可，所以这个会放在渲染循环的前面
 	glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);
-	// or set it via the texture class
 	ourShader.setInt("texture2", 1);
-
-
-
 	// render loop
-	// -----------
 	while (!glfwWindowShouldClose(window))
 	{
 		// input
-		// -----
 		processInput(window);
 
-		// render
-		// ------
+		// 清空背景颜色
+		// 当调用glClear函数，清除颜色缓冲之后，
+		// 整个颜色缓冲都会被填充为glClearColor里所设置的颜色
+		// 在这里，我们将屏幕设置为了类似黑板的深蓝绿色
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		// bind textures on corresponding texture units
+		// 在绑定纹理之前先激活纹理单元
 		glActiveTexture(GL_TEXTURE0);
+		// 绑定纹理，自动把纹理赋值给片段着色器的采样器
 		glBindTexture(GL_TEXTURE_2D, texture1);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);

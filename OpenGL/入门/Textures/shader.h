@@ -58,19 +58,19 @@ public:
 		}
 		const char* vShaderCode = vertexCode.c_str();
 		const char * fShaderCode = fragmentCode.c_str();
-		// 2. compile shaders
+		// 2.创建着色器
 		unsigned int vertex, fragment;
-		// vertex shader
+		// 顶点着色器
 		vertex = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertex, 1, &vShaderCode, NULL);
 		glCompileShader(vertex);
 		checkCompileErrors(vertex, "VERTEX");
-		// fragment Shader
+		// 片段着色器
 		fragment = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragment, 1, &fShaderCode, NULL);
 		glCompileShader(fragment);
 		checkCompileErrors(fragment, "FRAGMENT");
-		// if geometry shader is given, compile geometry shader
+		// 编译着色器
 		unsigned int geometry;
 		if (geometryPath != nullptr)
 		{
@@ -80,7 +80,7 @@ public:
 			glCompileShader(geometry);
 			checkCompileErrors(geometry, "GEOMETRY");
 		}
-		// shader Program
+		//添加着色器到着色器程序对象
 		ID = glCreateProgram();
 		glAttachShader(ID, vertex);
 		glAttachShader(ID, fragment);
@@ -88,7 +88,7 @@ public:
 			glAttachShader(ID, geometry);
 		glLinkProgram(ID);
 		checkCompileErrors(ID, "PROGRAM");
-		// delete the shaders as they're linked into our program now and no longer necessery
+		// 至此，我们已经不需要之前的两个片段着色器了，就删了
 		glDeleteShader(vertex);
 		glDeleteShader(fragment);
 		if (geometryPath != nullptr)
