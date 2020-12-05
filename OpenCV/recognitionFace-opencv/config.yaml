@@ -1,0 +1,5 @@
+FACE:
+  GPU_ID: 0
+  FACE_DB: "face_db"
+  THRESHOLD: 1.24
+  NMS: 0.50
