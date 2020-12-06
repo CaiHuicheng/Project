@@ -1,0 +1,5 @@
+读入人脸图片
+python register.py -n 4 --name 1711610035
+
+人脸识别
+python face_recognition.py
