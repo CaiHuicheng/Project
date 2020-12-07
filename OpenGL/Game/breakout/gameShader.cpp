@@ -1,4 +1,4 @@
-#include"gameShader.h"
+#include"include\gameShader.h"
 #include<iostream>
 using namespace std;
 
@@ -103,7 +103,7 @@ void Shader::checkCompileErrors(GLuint object, std::string type) {
 	GLint success;
 	GLchar infoLog[1024];
 	if (type != "PROGRAM") {
-		glGetShaderiv(object, GL_COMPILE_STATUS, &success);
+		glGetShaderiv(object, GL_LINK_STATUS, &success);
 		if (success) {
 			glGetShaderInfoLog(object, 1024, NULL, infoLog);
 			std::cout << "| ERROR::SHADER: Compile-time error: Type: " << type << "\n"
@@ -114,7 +114,7 @@ void Shader::checkCompileErrors(GLuint object, std::string type) {
 	}
 	else
 	{
-		glGetProgramiv(object, GL_LINK_STATUS, &success);
+		glGetProgramiv(object, GL_COMPILE_STATUS, &success);
 		if (!success)
 		{
 			glGetProgramInfoLog(object, 1024, NULL, infoLog);

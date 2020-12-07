@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "gameTexture.h"
+#include "include\gameTexture.h"
 
 
 Texture2D::Texture2D()
