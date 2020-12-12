@@ -79,8 +79,8 @@ int main()
 
 	// build and compile shaders
 	// -------------------------
-	Shader shader("./高级光照/shaders/2-1stencil_testing.vs", "./高级光照/shaders/2-1stencil_testing.fs");
-	Shader shaderSingleColor("./高级光照/shaders/2-2stencil_testing.vs", "./高级光照/shaders/2-2stencil_single_color.fs");
+	Shader shader("./高级OpenGL/shaders/2-1stencil_testing.vs", "./高级OpenGL/shaders/2-1stencil_testing.fs");
+	Shader shaderSingleColor("./高级OpenGL/shaders/2-2stencil_testing.vs", "./高级OpenGL/shaders/2-2stencil_single_color.fs");
 
 	// set up vertex data (and buffer(s)) and configure vertex attributes
 	// ------------------------------------------------------------------
@@ -165,8 +165,8 @@ int main()
 
 	// load textures
 	// -------------
-	unsigned int cubeTexture = loadTexture("./高级光照/images/marble.jpg");
-	unsigned int floorTexture = loadTexture("./高级光照/images/metal.png");
+	unsigned int cubeTexture = loadTexture("./高级OpenGL/images/marble.jpg");
+	unsigned int floorTexture = loadTexture("./高级OpenGL/images/metal.png");
 
 	// shader configuration
 	// --------------------

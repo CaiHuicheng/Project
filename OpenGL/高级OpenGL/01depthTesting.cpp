@@ -76,7 +76,7 @@ int main()
 
 							// build and compile shaders
 							// -------------------------
-	Shader shader("./高级光照/shaders/1-1depth_testing.vs", "./高级光照/shaders/1-1depth_testing.fs");
+	Shader shader("./高级OpenGL/shaders/1-1depth_testing.vs", "./高级OpenGL/shaders/1-1depth_testing.fs");
 
 	// set up vertex data (and buffer(s)) and configure vertex attributes
 	// ------------------------------------------------------------------
@@ -160,8 +160,8 @@ int main()
 	glBindVertexArray(0);
 
 	// load textures
-	unsigned int cubeTexture = loadTexture("./高级光照/images/marble.jpg");
-	unsigned int floorTexture = loadTexture("./高级光照/images/metal.png");
+	unsigned int cubeTexture = loadTexture("./高级OpenGL/images/marble.jpg");
+	unsigned int floorTexture = loadTexture("./高级OpenGL/images/metal.png");
 
 	// shader configuration
 	shader.use();
